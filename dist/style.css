@@ -27,36 +27,79 @@ body {
 }
 
 .menu {
-    text-align: center;
     grid-area: menu;
-    padding: 10px 30px;
+    text-align: center;
+    padding: 20px 20px;
     background-color: #bbb;
 }
 
-.menu .button {
+.button {
+    width: 100%;
+    display: inline-block;
+    font-weight: bold;
+    text-align: center;   
+    margin: 10px 0;
+    padding: 5px;
     background-color: #333;
     color: #eee;
-    margin: 10px 0;
-    padding: 5px 20px;
-    width: 80%;
     border: 2px solid #eee;
 }
 
-.menu .button:hover {
+.button:hover {
     background-color: #555;
+    color: #fff;
     border: 2px solid #fff;
+    box-shadow: 0 0 5px 0 #fff;
+    cursor: pointer;
 }
 
 .main {
     grid-area: main;
     height: 100%;
     width: 100%;
+    padding: 20px 30px;
+}
+
+.inputdiv {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    margin: 5px 0px;
+}
+
+.input {
+    width: 70%
+}
+
+.dialog {
+    height: 200px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #000000;
+    background-color: #bbb;
     padding: 10px 30px;
+}
+
+.closediv {
+    margin: 0px -15px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.closebutton {
+    font-weight: bold;
+    color: #f00;
+    text-align: center;
+    cursor: pointer;
+}
+
+.buttondiv button {
+    margin: auto;
 }
 
 .footer {
     grid-area: footer;
-    background-color: #333;
     background-color: #333;
     color: #eee;
     text-align: center;
