@@ -1,18 +1,16 @@
-import { par } from "./domstuff";
+import { projectDialog, todoDialog } from "./domstuff";
 import { addTodoItem, readTodos, removeItem, setDone } from "./todo";
 
 addTodoItem('niks', 'morgen');
 addTodoItem('blabla', 'ooit');
 addTodoItem('hahaha', 'gisteren')
 
-//readTodos().forEach(item => console.log(item));
-//console.log('');
+document.querySelector('.todobutton').addEventListener('click', e => console.log('todo submit'));
+document.querySelector('.projectbutton').addEventListener('click', e => console.log('project submit'));
+
+
+/* 
 
 setTimeout(() => {
 
-    setDone(0);
-    removeItem(1);
-    //readTodos().forEach(item => console.log(item));
-    //console.log('');
-    //par.setText('5s timer passed')
-}, 5000);
+}, 5000); */

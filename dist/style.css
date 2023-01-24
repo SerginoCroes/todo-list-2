@@ -57,7 +57,6 @@ body {
     grid-area: main;
     height: 100%;
     width: 100%;
-    padding: 20px 30px;
 }
 
 .inputdiv {
@@ -68,29 +67,53 @@ body {
 }
 
 .input {
-    width: 70%
+    width: 60%;
 }
 
 .dialog {
-    height: 200px;
-    width: 300px;
-    display: flex;
-    flex-direction: column;
-    border: 1px solid #000000;
+    position: absolute;
+    width: 350px;
+    border: 2px solid #333;
     background-color: #bbb;
     padding: 10px 30px;
+    margin: 50px calc(50% - 354px);
 }
 
-.closediv {
-    margin: 0px -15px;
+.topdiv {
+    background-color: #333;
+    margin: -10px -30px 15px;
+    padding: 5px 5px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+}
+
+.topdiv p {
+    color: #eee;
+    position: relative;
+    text-align: center;
+    font-weight: bold;
+    left: 25px;
 }
 
 .closebutton {
-    font-weight: bold;
-    color: #f00;
+    display: flex;
+    justify-content: center;
     text-align: center;
+    height: 1.5em;
+    width: 1.5em;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    background-color: #333;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+}
+
+.closebutton:hover {
+    background-color: #555;
+    color: #fff;
+    border: 2px solid #fff;
+    box-shadow: 0 0 5px 0 #fff;
     cursor: pointer;
 }
 

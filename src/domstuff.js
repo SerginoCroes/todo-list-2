@@ -1,12 +1,12 @@
 const content = document.querySelector('#content');
 
 class DomElement {
-    constructor(element, props) {
+    constructor(element, parent, props) {
         this.el = document.createElement(element);        
         if (props.text) this.el.innerText = props.text;
         if (props.attr) Object.keys(props.attr).forEach(attr => this.el.setAttribute(attr, props.attr[attr]));
         if (props.styles) Object.keys(props.styles).forEach(key => this.el.style[key] = props.styles[key]);
-        if (props.parent) props.parent.append(this.el);
+        parent.append(this.el);
     }
     append(item) {
         this.el.appendChild(item);
@@ -16,41 +16,74 @@ class DomElement {
     }
 }
 
-const header = new DomElement('div', {attr: {class: 'header'}, parent: content});
-const headerTitle = new DomElement('h1', {text: 'Todo list', parent: header});
+const header = new DomElement('div', content, {attr: {class: 'header'}});
+const headerTitle = new DomElement('h1', header, {text: 'Todo list'});
 
-const menu = new DomElement('div', {attr: {class: 'menu'}, parent: content});
-const menuHead = new DomElement('h2', {text: 'Menu', parent: menu});
-const addbuttona = new DomElement('button', {attr: {class: 'button'}, text: 'Add item', parent: menu});
-const addbuttonb = new DomElement('button', {attr: {class: 'button'}, text: 'Add project', parent: menu});
-const addbuttonc = new DomElement('button', {attr: {class: 'button'}, text: 'blabla', parent: menu});
+const menu = new DomElement('div', content, {attr: {class: 'menu'}});
+const menuHead = new DomElement('h2', menu, {text: 'Menu'});
+const addbuttona = new DomElement('button', menu, {attr: {class: 'button'}, text: 'Add item'});
+const addbuttonb = new DomElement('button', menu, {attr: {class: 'button'}, text: 'Add project'});
 
-addbuttona.el.addEventListener('click', () => dialog.el.style.display = 'block');
-//document.querySelectorAll('.button').forEach(button => button.addEventListener('click', event => par.setText(`${event.target.innerText} pressed`)));
+addbuttona.el.addEventListener('click', () => todoDialog.el.style.display = 'block');
+addbuttonb.el.addEventListener('click', () => projectDialog.el.style.display = 'block');
 
-const mainDiv = new DomElement('div', {attr: {class: 'main'}, parent: content});
-//export const par = new DomElement('p', {text: 'main field', styles: {backgroundColor: '#0000ff', color: '#ffff00', fontSize: '30px', margin: '20px 0px',  padding: '10px', fontWeight: 'bold'}, parent: mainDiv});
+const mainDiv = new DomElement('div', content, {attr: {class: 'main'}});
 
-//=================================Dialog======================================//
-const dialog = new DomElement('div', {attr: {class: 'dialog'}, styles: {display: 'none'}, parent: mainDiv});
+//=================================Todo Dialog======================================//
+function buildTodoDialog() {
+    const dialog = new DomElement('div', mainDiv, {attr: {class: 'dialog'}, styles: {display: 'none'}});
 
-const closeDiv = new DomElement('div', {attr: {class: 'closediv'}, parent: dialog});
-const closeButton = new DomElement('p', {text: 'x', attr: {class: 'closebutton'}, parent: closeDiv});
-closeButton.el.addEventListener('click', () => dialog.el.style.display = 'none');
+    const topDiv = new DomElement('div', dialog, {attr: {class: 'topdiv'}});
+    const topTitle = new DomElement('p', topDiv, {text: 'Add todo'});
+    const closeButton = new DomElement('button', topDiv, {text: 'x', attr: {class: 'closebutton'}});
+    closeButton.el.addEventListener('click', () => dialog.el.style.display = 'none');
 
-const form = new DomElement('form', {attr: {class: 'form'}, parent: dialog});
-const todoDiv = new DomElement('div', {attr: {class: 'inputdiv'}, parent: form});
-const todoLabel = new DomElement('label', {text: 'Todo:', attr: {for: 'todoinput', class: 'label'}, parent: todoDiv});
-const todoInput = new DomElement('input', {attr: {id: 'todoinput', class: 'input'}, parent: todoDiv});
+    const form = new DomElement('form', dialog, {attr: {class: 'form'}});
+    const todoDiv = new DomElement('div', form, {attr: {class: 'inputdiv'}});
+    const todoLabel = new DomElement('label', todoDiv, {text: 'Todo:', attr: {for: 'todoinput'}});
+    const todoInput = new DomElement('input', todoDiv, {attr: {id: 'todoinput', class: 'input'}});
 
-const dateDiv = new DomElement('div', {attr: {class: 'inputdiv'}, parent: form});
-const dateLabel = new DomElement('label', {text: 'Date:', attr: {for: 'dateinput', class: 'label'}, parent: dateDiv});
-const dateInput = new DomElement('input', {attr: {type: 'date', id: 'dateinput', class: 'input'}, parent: dateDiv});
+    const dateDiv = new DomElement('div', form, {attr: {class: 'inputdiv'}});
+    const dateLabel = new DomElement('label', dateDiv, {text: 'Date:', attr: {for: 'dateinput'}});
+    const dateInput = new DomElement('input', dateDiv, {attr: {type: 'date', id: 'dateinput', class: 'input'}});
 
-const buttonDiv = new DomElement('div', {parent: form, attr: {class: 'buttondiv inputdiv'}});
-const addButton = new DomElement('button', {text: 'Submit', attr: {class: 'button'}, parent: buttonDiv});
-addButton.el.addEventListener('click', e => {e.preventDefault(); dialog.el.style.display = 'none'});
-//=================================Dialog end==================================//
+    const buttonDiv = new DomElement('div', form, {attr: {class: 'buttondiv inputdiv'}});
+    const addButton = new DomElement('button', buttonDiv, {text: 'Submit', attr: {class: 'button todobutton'}});
+    addButton.el.addEventListener('click', e => {
+        e.preventDefault();
+        dialog.el.style.display = 'none';
+    });
+    return dialog;
+}
 
-const footer = new DomElement('div', {attr: {class: 'footer'}, parent: content});
-const footerText = new DomElement('p', {text: 'Footer', parent: footer});
+export const todoDialog = buildTodoDialog();
+//=================================Dialog end=======================================//
+
+//=================================Project Dialog===================================//
+function buildProjectDialog() {
+    const dialog = new DomElement('div', mainDiv, {attr: {class: 'dialog'}, styles: {display: 'none'}});
+
+    const topDiv = new DomElement('div', dialog, {attr: {class: 'topdiv'}});
+    const topTitle = new DomElement('p', topDiv, {text: 'Add project'});
+    const closeButton = new DomElement('button', topDiv, {text: 'x', attr: {class: 'closebutton'}});
+    closeButton.el.addEventListener('click', () => dialog.el.style.display = 'none');
+
+    const form = new DomElement('form', dialog, {attr: {class: 'form'}});
+    const todoDiv = new DomElement('div', form, {attr: {class: 'inputdiv'}});
+    const todoLabel = new DomElement('label', todoDiv, {text: 'Project name:', attr: {for: 'projectinput'}});
+    const todoInput = new DomElement('input', todoDiv, {attr: {id: 'projectinput', class: 'input'}});
+
+    const buttonDiv = new DomElement('div', form, {attr: {class: 'buttondiv inputdiv'}});
+    const addButton = new DomElement('button', buttonDiv, {text: 'Submit', attr: {class: 'button projectbutton'}});
+    addButton.el.addEventListener('click', e => {
+        e.preventDefault();
+        dialog.el.style.display = 'none';
+    });
+    return dialog;
+}
+
+export const projectDialog = buildProjectDialog();
+//=================================Dialog end=======================================//
+
+const footer = new DomElement('div', content, {attr: {class: 'footer'}});
+const footerText = new DomElement('p', footer, {text: 'Footer'});
