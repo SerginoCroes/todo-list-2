@@ -1,16 +1,21 @@
-import { projectDialog, todoDialog } from "./domstuff";
+import { buildTodoDiv, projectDialog, todoDialog } from "./domstuff";
 import { addTodoItem, readTodos, removeItem, setDone } from "./todo";
 
-addTodoItem('niks', 'morgen');
-addTodoItem('blabla', 'ooit');
-addTodoItem('hahaha', 'gisteren')
+todoDialog.el.children[1][2].addEventListener('click', () => {
+    const todo = todoDialog.el.children[1][0].value;
+    const date = todoDialog.el.children[1][1].value;
 
-document.querySelector('.todobutton').addEventListener('click', e => console.log('todo submit'));
-document.querySelector('.projectbutton').addEventListener('click', e => console.log('project submit'));
+    if (todo && date) {
+        addTodoItem(todo, date);
+        buildTodoDiv(todo, date);
+    }
 
+    todoDialog.el.children[1][0].value = '';
+    todoDialog.el.children[1][1].value = '';
+});
 
-/* 
-
-setTimeout(() => {
-
-}, 5000); */
+projectDialog.el.children[1][1].addEventListener('click', () => {
+    console.log('project submit');
+    console.log(projectDialog.el.children[1][0].value);
+    projectDialog.el.children[1][0].value = '';
+});
