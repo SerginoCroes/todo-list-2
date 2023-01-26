@@ -10,7 +10,7 @@ body {
 
 #content {
     display: grid;
-    grid-template-columns: max(20vw, 180px) 1fr;
+    grid-template-columns: 180px 1fr;
     grid-template-rows: 80px calc(100vh - 120px) 40px;
     grid-template-areas:    'header header'
                             'menu main'
@@ -35,7 +35,7 @@ body {
 
 .button {
     width: 100%;
-    display: inline-block;
+    height: 29px;
     font-weight: bold;
     text-align: center;   
     margin: 10px 0;
@@ -43,6 +43,11 @@ body {
     background-color: #333;
     color: #eee;
     border: 2px solid #eee;
+}
+
+.projectbutton {
+    position: relative;
+    margin: 5px 0;
 }
 
 .button:hover {
@@ -57,6 +62,7 @@ body {
     grid-area: main;
     height: 100%;
     width: 100%;
+    padding: 10px 0px 0px 20px;
 }
 
 .inputdiv {
@@ -76,7 +82,8 @@ body {
     border: 2px solid #333;
     background-color: #bbb;
     padding: 10px 30px;
-    margin: 50px calc(50% - 354px);
+    margin: 50px calc(50% - 374px);
+    box-shadow: 5px 5px 10px 0px #bbb;
 }
 
 .topdiv {
@@ -95,8 +102,8 @@ body {
     left: 25px;
 }
 
-.closebutton {
-    display: flex;
+.closebutton, .delproject {
+    display: inline-flex;
     justify-content: center;
     text-align: center;
     height: 1.5em;
@@ -109,7 +116,14 @@ body {
     cursor: pointer;
 }
 
-.closebutton:hover {
+.delproject {
+    position: absolute;
+    margin: -10px;
+    top: 13px;
+    right: 13px;
+}
+
+.closebutton:hover, .delproject:hover {
     background-color: #555;
     color: #fff;
     border: 2px solid #fff;
@@ -119,6 +133,16 @@ body {
 
 .buttondiv button {
     margin: auto;
+}
+
+.tododiv {
+    display: inline-block;
+    width: 300px;
+    font-weight: bold;
+    border: 2px solid #333;
+    background-color: #bbb;
+    padding: 10px 30px;
+    margin: 10px 20px 10px 0px;
 }
 
 .footer {
