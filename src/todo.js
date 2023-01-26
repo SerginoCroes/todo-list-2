@@ -27,3 +27,18 @@ export function setDone(i) {
 export function removeItem(i) {
     todoArray.splice(i, 1);
 }
+
+let projectObject = {};
+
+export function addProject(project) {
+    projectObject[Object.keys(projectObject).length] = project;
+    return Object.keys(projectObject).length;
+}
+
+export function getProjects() {
+    return projectObject;
+}
+
+export function removeProject(i) {
+    delete projectObject[i];
+}

@@ -99,9 +99,10 @@ export function buildTodoDiv(todo, date) {
 //=================================Div end==========================================//
 
 //=================================Project button===================================//
-export function addProject(project) {
+export function drawProjectButton(project) {
     const projectButton = new DomElement('button', menu, {text: project, attr: {class: 'button projectbutton'}});
     const deleteButton = new DomElement('button', projectButton, {text: 'x', attr: {class: 'delproject'}});
     deleteButton.el.addEventListener('click', e => menu.el.removeChild(e.target.parentNode));
+    return projectButton;
 }
 //=================================Button end=======================================//
