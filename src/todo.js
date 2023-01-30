@@ -1,4 +1,8 @@
-let todoArray = [];
+let activeProject = 'default';
+
+export function setActiveProject(project) {
+    activeProject = project;
+}
 
 class Todoitem {
     constructor(todo, date) {
@@ -13,32 +17,33 @@ class Todoitem {
 }
 
 export function addTodoItem(todo, date){
-    todoArray.push(new Todoitem(todo, date));
+    projectObject[activeProject][todo] = new Todoitem(todo, date);
 }
 
 export function readTodos() {
-    return todoArray;
+    return projectObject[activeProject];
 }
 
+/* 
 export function setDone(i) {
     todoArray[i].setDone();
 }
 
 export function removeItem(i) {
     todoArray.splice(i, 1);
-}
+} */
 
-let projectObject = {};
+let projectObject = {default: {}};
 
 export function addProject(project) {
-    projectObject[Object.keys(projectObject).length] = project;
-    return Object.keys(projectObject).length;
+    projectObject[project] = {};
 }
 
 export function getProjects() {
     return projectObject;
 }
 
-export function removeProject(i) {
-    delete projectObject[i];
+export function removeProject(project) {
+    console.log(project);
+    delete projectObject[project];
 }

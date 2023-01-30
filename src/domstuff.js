@@ -25,8 +25,8 @@ const addbuttona = new DomElement('button', menu, {text: 'Add todo', attr: {clas
 const projectHead = new DomElement('h2', menu, {text: 'Projects:'});
 const addbuttonb = new DomElement('button', menu, { text: 'Add project', attr: {class: 'button'}});
 
-addbuttona.el.addEventListener('click', () => todoDialog.el.style.display = 'block');
-addbuttonb.el.addEventListener('click', () => projectDialog.el.style.display = 'block');
+addbuttona.el.addEventListener('click', () => todoDialog.el.style.visibility = 'visible');
+addbuttonb.el.addEventListener('click', () => projectDialog.el.style.visibility = 'visible');
 
 const mainDiv = new DomElement('div', content, {attr: {class: 'main'}});
 
@@ -36,12 +36,12 @@ const footerText = new DomElement('p', footer, {text: 'Footer'});
 
 //=================================Todo dialog======================================//
 function buildTodoDialog() {
-    const dialog = new DomElement('div', mainDiv, {attr: {class: 'dialog'}, styles: {display: 'none'}});
+    const dialog = new DomElement('div', content, {attr: {class: 'dialog'}, styles: {visibility: 'hidden'}});
 
     const topDiv = new DomElement('div', dialog, {attr: {class: 'topdiv'}});
     const topTitle = new DomElement('p', topDiv, {text: 'Add todo'});
     const closeButton = new DomElement('button', topDiv, {text: 'x', attr: {class: 'closebutton'}});
-    closeButton.el.addEventListener('click', () => dialog.el.style.display = 'none');
+    closeButton.el.addEventListener('click', () => dialog.el.style.visibility = 'hidden');
 
     const form = new DomElement('form', dialog, {attr: {class: 'form'}});
     const todoDiv = new DomElement('div', form, {attr: {class: 'inputdiv'}});
@@ -56,7 +56,7 @@ function buildTodoDialog() {
     const addButton = new DomElement('button', buttonDiv, {text: 'Submit', attr: {class: 'button'}});
     addButton.el.addEventListener('click', e => {
         e.preventDefault();
-        dialog.el.style.display = 'none';
+        dialog.el.style.visibility = 'hidden';
     });
     return dialog;
 }
@@ -66,12 +66,12 @@ export const todoDialog = buildTodoDialog();
 
 //=================================Project dialog===================================//
 function buildProjectDialog() {
-    const dialog = new DomElement('div', mainDiv, {attr: {class: 'dialog'}, styles: {display: 'none'}});
+    const dialog = new DomElement('div', content, {attr: {class: 'dialog'}, styles: {visibility: 'hidden'}});
 
     const topDiv = new DomElement('div', dialog, {attr: {class: 'topdiv'}});
     const topTitle = new DomElement('p', topDiv, {text: 'Add project'});
     const closeButton = new DomElement('button', topDiv, {text: 'x', attr: {class: 'closebutton'}});
-    closeButton.el.addEventListener('click', () => dialog.el.style.display = 'none');
+    closeButton.el.addEventListener('click', () => dialog.el.style.visibility = 'hidden');
 
     const form = new DomElement('form', dialog, {attr: {class: 'form'}});
     const todoDiv = new DomElement('div', form, {attr: {class: 'inputdiv'}});
@@ -82,7 +82,7 @@ function buildProjectDialog() {
     const addButton = new DomElement('button', buttonDiv, {text: 'Submit', attr: {class: 'button'}});
     addButton.el.addEventListener('click', e => {
         e.preventDefault();
-        dialog.el.style.display = 'none';
+        dialog.el.style.visibility = 'hidden';
     });
     return dialog;
 }
@@ -97,6 +97,17 @@ export function buildTodoDiv(todo, date) {
     const todoDate = new DomElement('p', todoDiv, {text: date});
 }
 //=================================Div end==========================================//
+
+//=================================Project todos====================================//
+export function buildTodos(projects) {
+
+    Object.values(mainDiv.el.children).forEach(element => mainDiv.el.removeChild(element));
+
+    Object.keys(projects).forEach(key => {
+        buildTodoDiv(key, projects[key].date);
+    });
+}
+//=================================Project todos end================================//
 
 //=================================Project button===================================//
 export function drawProjectButton(project) {

@@ -9,6 +9,7 @@ body {
 }
 
 #content {
+    position: relative;
     display: grid;
     grid-template-columns: 180px 1fr;
     grid-template-rows: 80px calc(100vh - 120px) 40px;
@@ -29,7 +30,7 @@ body {
 .menu {
     grid-area: menu;
     text-align: center;
-    padding: 20px 20px;
+    padding: 10px 20px;
     background-color: #bbb;
 }
 
@@ -82,7 +83,7 @@ body {
     border: 2px solid #333;
     background-color: #bbb;
     padding: 10px 30px;
-    margin: 50px calc(50% - 374px);
+    margin: 150px calc(50% - 175px);
     box-shadow: 5px 5px 10px 0px #bbb;
 }
 
