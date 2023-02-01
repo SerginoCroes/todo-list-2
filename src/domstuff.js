@@ -78,7 +78,6 @@ function buildProjectDialog() {
 
     const buttonDiv = new DomElement('div', form, {attr: {class: 'buttondiv inputdiv'}});
     const addButton = new DomElement('button', buttonDiv, {text: 'Submit', attr: {class: 'button'}});
-
     return dialog;
 }
 
@@ -86,7 +85,7 @@ export const projectDialog = buildProjectDialog();
 
 export function buildTodoDiv(todoItem) {
     const todoDiv = new DomElement('div', mainDiv, {attr: {class: 'tododiv'}});
-    const todoText = new DomElement('p', todoDiv, {text: `Title: ${todoItem.todo}`});
+    const todoTitle = new DomElement('p', todoDiv, {text: `Title: ${todoItem.todo}`});
     const todoDate = new DomElement('p', todoDiv, {text: `Date: ${todoItem.date}`});
     const todoButtons = new DomElement('div', todoDiv, {attr: {class: 'todobuttons'}});
     const todoDone = new DomElement('button', todoButtons, {text: todoItem.done ? 'Done': 'Not done yet', attr: {class: 'button todobutton'}});

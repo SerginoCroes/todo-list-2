@@ -83,9 +83,9 @@ function todoEventListeners (todoDiv, todoItem) {
         }
     });
     todoDiv.el.children[2].children[0].addEventListener('click', e => {
+        switchDone(todoItem);
         e.stopPropagation();
         e.target.innerText = todoItem.done ? 'Done': 'Not done yet';
-        switchDone(todoItem);         
     });
     todoDiv.el.children[2].children[1].addEventListener('click', () => {        
         removeItem(todoItem.todo);
