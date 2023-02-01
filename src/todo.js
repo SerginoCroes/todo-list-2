@@ -10,28 +10,23 @@ class Todoitem {
         this.date = date;
         this.done = false;
     }
-
-    setDone() {
-        this.done = true;
-    }
 }
 
 export function addTodoItem(todo, date){
-    projectObject[activeProject][todo] = new Todoitem(todo, date);
+    return projectObject[activeProject][todo] = new Todoitem(todo, date);
 }
 
 export function readTodos() {
     return projectObject[activeProject];
 }
 
-/* 
-export function setDone(i) {
-    todoArray[i].setDone();
+export function switchDone(item) {
+    item.done = !item.done;
 }
 
-export function removeItem(i) {
-    todoArray.splice(i, 1);
-} */
+export function removeItem(todo) {
+    delete projectObject[activeProject][todo];
+} 
 
 let projectObject = {default: {}};
 
@@ -39,11 +34,14 @@ export function addProject(project) {
     projectObject[project] = {};
 }
 
-export function getProjects() {
-    return projectObject;
+export function getActiveProject() {
+    return projectObject[activeProject];
+}
+
+export function getActiveProjectName() {
+    return activeProject;
 }
 
 export function removeProject(project) {
-    console.log(project);
     delete projectObject[project];
 }
