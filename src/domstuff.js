@@ -1,5 +1,4 @@
 const content = document.querySelector('#content');
-const buttonArray = [];
 
 class DomElement {
     constructor(element, parent, props) {
@@ -55,12 +54,6 @@ function buildTodoDialog() {
     return dialog;
 }
 
-export function AddTodoDescription(parent) {
-    const desciptionDiv = new DomElement('div', parent, {});
-    const descriptionField = new DomElement('textarea', desciptionDiv, {});
-    return desciptionDiv;
-}
-
 export const todoDialog = buildTodoDialog();
 
 function buildProjectDialog() {
@@ -91,6 +84,12 @@ export function buildTodoDiv(todoItem) {
     const todoDone = new DomElement('button', todoButtons, {text: todoItem.done ? 'Done': 'Not done yet', attr: {class: 'button todobutton'}});
     const todoDelete = new DomElement('button', todoButtons, {text: `Delete ${todoItem.todo.length > 8? 'task' : todoItem.todo}`, attr: {class: 'button todobutton'}});
     return todoDiv;
+}
+
+export function AddTodoDescription(parent) {
+    const desciptionDiv = new DomElement('div', parent, {});
+    const descriptionField = new DomElement('textarea', desciptionDiv, {});
+    return desciptionDiv;
 }
 
 export function removeTodos() {
