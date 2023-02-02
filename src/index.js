@@ -1,15 +1,15 @@
 import { buildTodoDiv, drawActiveButton, drawProjectButton, projectDialog, removeTodos, todoDialog } from "./domstuff";
-import { addProject, addTodoItem, getActiveProject, getActiveProjectName, getAllProjects, removeItem, removeProject, setActiveProject, switchDone } from "./todo";
+import { addProject, addTodoItem, getActiveProject, getActiveProjectName, getAllProjects, localStorageSet, removeItem, removeProject, setActiveProject, switchDone } from "./todo";
 
 const defaultButton = drawProjectButton('Default todo\'s');
 defaultButton.el.removeChild(defaultButton.el.children[0]);
-drawActiveButton(defaultButton);
 defaultButton.el.addEventListener('click', () => {
     projectRender('default', defaultButton);
 });
+projectRender('default', defaultButton);
+drawActiveButton(defaultButton);
 
 Object.keys(getAllProjects()).forEach(key => {if (key != 'default') addProjectButton(key)});
-projectRender('default', defaultButton);
 
 todoDialog.el.children[1][2].addEventListener('click', (e) => {
     e.preventDefault();
@@ -74,7 +74,10 @@ function todoEventListeners (todoDiv, todoItem) {
     let descriptionVisible = false;
     const descDiv = todoDiv.el.children[3];
     descDiv.addEventListener('click', e => e.stopPropagation());
-    descDiv.children[0].addEventListener('keyup', () => todoItem.description = descDiv.children[0].value);
+    descDiv.children[0].addEventListener('keyup', () => {
+        todoItem.description = descDiv.children[0].value;
+        localStorageSet();
+    });
 
     todoDiv.el.addEventListener('click', () => {
         if (!descriptionVisible) {

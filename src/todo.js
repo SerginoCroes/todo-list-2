@@ -54,6 +54,6 @@ export function removeProject(project) {
     localStorageSet();
 }
 
-function localStorageSet() {
+export function localStorageSet() {
     localStorage.setItem('projects', JSON.stringify(projectObject));
 }
