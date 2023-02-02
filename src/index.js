@@ -1,5 +1,5 @@
 import { buildTodoDiv, drawActiveButton, drawProjectButton, projectDialog, removeTodos, todoDialog } from "./domstuff";
-import { addProject, addTodoItem, getActiveProject, getActiveProjectName, getAllProjects, localStorageSet, removeItem, removeProject, setActiveProject, switchDone } from "./todo";
+import { addProject, addTodoItem, getActiveProject, getActiveProjectName, getAllProjects, removeItem, removeProject, setActiveProject, setDescription, switchDone } from "./todo";
 
 const defaultButton = drawProjectButton('Default todo\'s');
 defaultButton.el.removeChild(defaultButton.el.children[0]);
@@ -75,8 +75,7 @@ function todoEventListeners (todoDiv, todoItem) {
     const descDiv = todoDiv.el.children[3];
     descDiv.addEventListener('click', e => e.stopPropagation());
     descDiv.children[0].addEventListener('keyup', () => {
-        todoItem.description = descDiv.children[0].value;
-        localStorageSet();
+        setDescription(todoItem, descDiv.children[0].value);
     });
 
     todoDiv.el.addEventListener('click', () => {
