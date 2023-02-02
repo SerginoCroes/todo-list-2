@@ -1,4 +1,5 @@
 let activeProject = 'default';
+let projectObject = {default: {}};
 
 class Todoitem {
     constructor(todo, date) {
@@ -10,42 +11,35 @@ class Todoitem {
 
 export function addTodoItem(todo, date){
     projectObject[activeProject][todo] = new Todoitem(todo, date);
-    localStorageSet();
+    localStorageSave();
     return projectObject[activeProject][todo];
 }
 
 export function switchDone(item) {
     item.done = !item.done;
-    localStorageSet();
+    localStorageSave();
 }
 
 export function setDescription(todoItem, description) {
     todoItem.description = description;
-    localStorageSet();
+    localStorageSave();
 }
 
 export function removeItem(todo) {
     delete projectObject[activeProject][todo];
-    localStorageSet();
+    localStorageSave();
 } 
-
-let projectObject = {default: {}};
 
 export function addProject(project) {
     projectObject[project] = {};
-    localStorageSet();
+    localStorageSave();
 }
 
 export function setActiveProject(project) {
     activeProject = project;
 }
 
-export function getActiveProject() {
-    if (localStorage.getItem('projects')) projectObject = JSON.parse(localStorage.getItem('projects'));
-    return projectObject[activeProject];
-}
-
-export function getAllProjects() {
+export function getProjects() {
     if (localStorage.getItem('projects')) projectObject = JSON.parse(localStorage.getItem('projects'));
     return projectObject;
 }
@@ -56,9 +50,9 @@ export function getActiveProjectName() {
 
 export function removeProject(project) {
     delete projectObject[project];
-    localStorageSet();
+    localStorageSave();
 }
 
-function localStorageSet() {
+function localStorageSave() {
     localStorage.setItem('projects', JSON.stringify(projectObject));
 }

@@ -1,5 +1,5 @@
 import { buildTodoDiv, drawActiveButton, drawProjectButton, projectDialog, removeTodos, todoDialog } from "./domstuff";
-import { addProject, addTodoItem, getActiveProject, getActiveProjectName, getAllProjects, removeItem, removeProject, setActiveProject, setDescription, switchDone } from "./todo";
+import { addProject, addTodoItem, getActiveProjectName, getProjects, removeItem, removeProject, setActiveProject, setDescription, switchDone } from "./todo";
 
 const defaultButton = drawProjectButton('Default todo\'s');
 defaultButton.el.removeChild(defaultButton.el.children[0]);
@@ -9,7 +9,7 @@ defaultButton.el.addEventListener('click', () => {
 projectRender('default', defaultButton);
 drawActiveButton(defaultButton);
 
-Object.keys(getAllProjects()).forEach(key => {if (key != 'default') addProjectButton(key)});
+Object.keys(getProjects()).forEach(key => {if (key != 'default') addProjectButton(key)});
 
 todoDialog.el.children[1][2].addEventListener('click', (e) => {
     e.preventDefault();
@@ -56,18 +56,18 @@ function addProjectButton(projName) {
     });
 }
 
-function buildTodoDivs() {
-    Object.values(getActiveProject()).forEach(todoItem => {
-        const todoDiv = buildTodoDiv(todoItem);
-        todoEventListeners(todoDiv, todoItem);
-    });
-}
-
 function projectRender(project, button) {
     setActiveProject(project);
     removeTodos();
-    buildTodoDivs();
+    buildTodoDivs(project);
     drawActiveButton(button);
+}
+
+function buildTodoDivs(project) {
+    Object.values(getProjects()[project]).forEach(todoItem => {
+        const todoDiv = buildTodoDiv(todoItem);
+        todoEventListeners(todoDiv, todoItem);
+    });
 }
 
 function todoEventListeners (todoDiv, todoItem) {
