@@ -19,6 +19,11 @@ export function switchDone(item) {
     localStorageSet();
 }
 
+export function setDescription(todoItem, description) {
+    todoItem.description = description;
+    localStorageSet();
+}
+
 export function removeItem(todo) {
     delete projectObject[activeProject][todo];
     localStorageSet();
@@ -54,6 +59,6 @@ export function removeProject(project) {
     localStorageSet();
 }
 
-export function localStorageSet() {
+function localStorageSet() {
     localStorage.setItem('projects', JSON.stringify(projectObject));
 }
