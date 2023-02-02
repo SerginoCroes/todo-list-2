@@ -74,9 +74,7 @@ function todoEventListeners (todoDiv, todoItem) {
     let descriptionVisible = false;
     const descDiv = todoDiv.el.children[3];
     descDiv.addEventListener('click', e => e.stopPropagation());
-    descDiv.children[0].addEventListener('keyup', () => {
-        setDescription(todoItem, descDiv.children[0].value);
-    });
+    descDiv.children[0].addEventListener('keyup', () => setDescription(todoItem, descDiv.children[0].value));
 
     todoDiv.el.addEventListener('click', () => {
         if (!descriptionVisible) {

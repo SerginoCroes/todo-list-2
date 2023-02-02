@@ -22,7 +22,7 @@ const headerTitle = new DomElement('h1', header, {text: 'Todo list'});
 const menu = new DomElement('div', content, {attr: {class: 'menu'}});
 const addTodo = new DomElement('button', menu, {text: 'Add todo', attr: {class: 'button'}});
 const addProject = new DomElement('button', menu, { text: 'Add project', attr: {class: 'button'}});
-const projectHead = new DomElement('h2', menu, {text: 'Projects:'});
+const projectHeader = new DomElement('h2', menu, {text: 'Projects:'});
 
 addTodo.el.addEventListener('click', () => todoDialog.el.style.display = 'block');
 addProject.el.addEventListener('click', () => projectDialog.el.style.display = 'block');
@@ -84,7 +84,7 @@ export function buildTodoDiv(todoItem) {
     const todoButtons = new DomElement('div', todoDiv, {attr: {class: 'todobuttons'}});
     const todoDone = new DomElement('button', todoButtons, {text: todoItem.done ? 'Done': 'Not done yet', attr: {class: 'button todobutton'}});
     const todoDelete = new DomElement('button', todoButtons, {text: `Delete ${todoItem.todo.length > 8? 'task' : todoItem.todo}`, attr: {class: 'button todobutton'}});
-    
+
     const desciptionDiv = new DomElement('div', todoDiv, {styles: {display: 'none'}});
     const descriptionField = new DomElement('textarea', desciptionDiv);
     return todoDiv;
