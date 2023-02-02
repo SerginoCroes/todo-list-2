@@ -1,9 +1,5 @@
 let activeProject = 'default';
 
-export function setActiveProject(project) {
-    activeProject = project;
-}
-
 class Todoitem {
     constructor(todo, date) {
         this.todo = todo;
@@ -13,29 +9,40 @@ class Todoitem {
 }
 
 export function addTodoItem(todo, date){
-    return projectObject[activeProject][todo] = new Todoitem(todo, date);
-}
-
-export function readTodos() {
-    return projectObject[activeProject];
+    projectObject[activeProject][todo] = new Todoitem(todo, date);
+    localStorageSet();
+    return projectObject[activeProject][todo];
 }
 
 export function switchDone(item) {
     item.done = !item.done;
+    localStorageSet();
 }
 
 export function removeItem(todo) {
     delete projectObject[activeProject][todo];
+    localStorageSet();
 } 
 
 let projectObject = {default: {}};
 
 export function addProject(project) {
     projectObject[project] = {};
+    localStorageSet();
+}
+
+export function setActiveProject(project) {
+    activeProject = project;
 }
 
 export function getActiveProject() {
+    if (localStorage.getItem('projects')) projectObject = JSON.parse(localStorage.getItem('projects'));
     return projectObject[activeProject];
+}
+
+export function getAllProjects() {
+    if (localStorage.getItem('projects')) projectObject = JSON.parse(localStorage.getItem('projects'));
+    return projectObject;
 }
 
 export function getActiveProjectName() {
@@ -44,4 +51,9 @@ export function getActiveProjectName() {
 
 export function removeProject(project) {
     delete projectObject[project];
+    localStorageSet();
+}
+
+function localStorageSet() {
+    localStorage.setItem('projects', JSON.stringify(projectObject));
 }

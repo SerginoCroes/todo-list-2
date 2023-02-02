@@ -1,5 +1,15 @@
-import { AddTodoDescription, buildTodoDiv, drawActiveButton, drawProjectButton, projectDialog, removeTodos, todoDialog } from "./domstuff";
-import { addProject, addTodoItem, getActiveProject, getActiveProjectName, removeItem, removeProject, setActiveProject, switchDone } from "./todo";
+import { buildTodoDiv, drawActiveButton, drawProjectButton, projectDialog, removeTodos, todoDialog } from "./domstuff";
+import { addProject, addTodoItem, getActiveProject, getActiveProjectName, getAllProjects, removeItem, removeProject, setActiveProject, switchDone } from "./todo";
+
+const defaultButton = drawProjectButton('Default todo\'s');
+defaultButton.el.removeChild(defaultButton.el.children[0]);
+drawActiveButton(defaultButton);
+defaultButton.el.addEventListener('click', () => {
+    projectRender('default', defaultButton);
+});
+
+Object.keys(getAllProjects()).forEach(key => {if (key != 'default') addProjectButton(key)});
+projectRender('default', defaultButton);
 
 todoDialog.el.children[1][2].addEventListener('click', (e) => {
     e.preventDefault();
@@ -24,18 +34,7 @@ projectDialog.el.children[1][1].addEventListener('click', (e) => {
 
     if (projName) {
         addProject(projName);
-        const projButton = drawProjectButton(projName);
-
-        projButton.el.addEventListener('click', () => {
-            projectRender(projName, projButton);
-        });
-
-        projButton.el.children[0].addEventListener('click', e => {
-            e.stopPropagation(); 
-            removeProject(projName);
-            if (projName === getActiveProjectName()) projectRender('default', defaultButton);
-        });
-
+        addProjectButton(projName);
         projectDialog.el.children[1][0].value = '';
         projectDialog.el.style.display = 'none';
     } else {
@@ -43,12 +42,19 @@ projectDialog.el.children[1][1].addEventListener('click', (e) => {
     }
 });
 
-const defaultButton = drawProjectButton('Default todo\'s');
-defaultButton.el.removeChild(defaultButton.el.children[0]);
-drawActiveButton(defaultButton);
-defaultButton.el.addEventListener('click', () => {
-    projectRender('default', defaultButton);
-});
+function addProjectButton(projName) {
+    const projButton = drawProjectButton(projName);
+
+    projButton.el.addEventListener('click', () => {
+        projectRender(projName, projButton);
+    });
+
+    projButton.el.children[0].addEventListener('click', e => {
+        e.stopPropagation(); 
+        removeProject(projName);
+        if (projName === getActiveProjectName()) projectRender('default', defaultButton);
+    });
+}
 
 function buildTodoDivs() {
     Object.values(getActiveProject()).forEach(todoItem => {
@@ -66,27 +72,28 @@ function projectRender(project, button) {
 
 function todoEventListeners (todoDiv, todoItem) {
     let descriptionVisible = false;
-    const descDiv = AddTodoDescription(todoDiv);
-    descDiv.el.style.display = 'none';
-    descDiv.el.addEventListener('click', e => e.stopPropagation());
-    descDiv.el.children[0].addEventListener('keyup', () => todoItem.description = descDiv.el.children[0].value);
+    const descDiv = todoDiv.el.children[3];
+    descDiv.addEventListener('click', e => e.stopPropagation());
+    descDiv.children[0].addEventListener('keyup', () => todoItem.description = descDiv.children[0].value);
 
     todoDiv.el.addEventListener('click', () => {
         if (!descriptionVisible) {
-            if (todoItem.description) descDiv.el.children[0].value = todoItem.description;
+            if (todoItem.description) descDiv.children[0].value = todoItem.description;
             descriptionVisible = true;
-            descDiv.el.style.display = 'block';
+            descDiv.style.display = 'block';
         } else {
             descriptionVisible = false;
-            descDiv.el.style.display = 'none';
-            descDiv.el.children[0].value = '';
+            descDiv.style.display = 'none';
+            descDiv.children[0].value = '';
         }
     });
+
     todoDiv.el.children[2].children[0].addEventListener('click', e => {
         switchDone(todoItem);
         e.stopPropagation();
         e.target.innerText = todoItem.done ? 'Done': 'Not done yet';
     });
+
     todoDiv.el.children[2].children[1].addEventListener('click', () => {        
         removeItem(todoItem.todo);
         todoDiv.el.remove();

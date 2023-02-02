@@ -1,7 +1,7 @@
 const content = document.querySelector('#content');
 
 class DomElement {
-    constructor(element, parent, props) {
+    constructor(element, parent, props = {}) {
         this.el = document.createElement(element);        
         if (props.text) this.el.innerText = props.text;
         if (props.attr) Object.keys(props.attr).forEach(attr => this.el.setAttribute(attr, props.attr[attr]));
@@ -80,16 +80,14 @@ export function buildTodoDiv(todoItem) {
     const todoDiv = new DomElement('div', mainDiv, {attr: {class: 'tododiv'}});
     const todoTitle = new DomElement('p', todoDiv, {text: `Title: ${todoItem.todo}`});
     const todoDate = new DomElement('p', todoDiv, {text: `Date: ${todoItem.date}`});
+
     const todoButtons = new DomElement('div', todoDiv, {attr: {class: 'todobuttons'}});
     const todoDone = new DomElement('button', todoButtons, {text: todoItem.done ? 'Done': 'Not done yet', attr: {class: 'button todobutton'}});
     const todoDelete = new DomElement('button', todoButtons, {text: `Delete ${todoItem.todo.length > 8? 'task' : todoItem.todo}`, attr: {class: 'button todobutton'}});
+    
+    const desciptionDiv = new DomElement('div', todoDiv, {styles: {display: 'none'}});
+    const descriptionField = new DomElement('textarea', desciptionDiv);
     return todoDiv;
-}
-
-export function AddTodoDescription(parent) {
-    const desciptionDiv = new DomElement('div', parent, {});
-    const descriptionField = new DomElement('textarea', desciptionDiv, {});
-    return desciptionDiv;
 }
 
 export function removeTodos() {
