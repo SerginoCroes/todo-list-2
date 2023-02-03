@@ -39,13 +39,13 @@ export function setActiveProject(project) {
     activeProject = project;
 }
 
+export function getActiveProjectName() {
+    return activeProject;
+}
+
 export function getProjects() {
     if (localStorage.getItem('projects')) projectObject = JSON.parse(localStorage.getItem('projects'));
     return projectObject;
-}
-
-export function getActiveProjectName() {
-    return activeProject;
 }
 
 export function removeProject(project) {

@@ -11,9 +11,6 @@ class DomElement {
     append(item) {
         this.el.appendChild(item);
     }
-    setText(text) {
-        this.el.innerText = text;
-    }
 }
 
 const header = new DomElement('div', content, {attr: {class: 'header'}});
