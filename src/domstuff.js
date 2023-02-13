@@ -38,13 +38,10 @@ function buildTodoDialog() {
     closeButton.el.addEventListener('click', () => dialog.el.style.display = 'none');
 
     const form = new DomElement('form', dialog, {attr: {class: 'form'}});
-    const todoDiv = new DomElement('div', form, {attr: {class: 'inputdiv'}});
-    const todoLabel = new DomElement('label', todoDiv, {text: 'Title:', attr: {for: 'todoinput'}});
-    const todoInput = new DomElement('input', todoDiv, {attr: {id: 'todoinput', class: 'input'}});
-
-    const dateDiv = new DomElement('div', form, {attr: {class: 'inputdiv'}});
-    const dateLabel = new DomElement('label', dateDiv, {text: 'Date:', attr: {for: 'dateinput'}});
-    const dateInput = new DomElement('input', dateDiv, {attr: {type: 'date', id: 'dateinput', class: 'input'}});
+    const todoLabel = new DomElement('label', form, {text: 'Title:'});
+    const todoInput = new DomElement('input', todoLabel, {attr: {id: 'todoinput', class: 'input'}});
+    const dateLabel = new DomElement('label', form, {text: 'Date:'});
+    const dateInput = new DomElement('input', dateLabel, {attr: {type: 'date', id: 'dateinput', class: 'input'}});
 
     const buttonDiv = new DomElement('div', form, {attr: {class: 'buttondiv inputdiv'}});
     const addButton = new DomElement('button', buttonDiv, {text: 'Submit', attr: {class: 'button'}});
@@ -62,10 +59,8 @@ function buildProjectDialog() {
     closeButton.el.addEventListener('click', () => dialog.el.style.display = 'none');
 
     const form = new DomElement('form', dialog, {attr: {class: 'form'}});
-    const todoDiv = new DomElement('div', form, {attr: {class: 'inputdiv'}});
-    const todoLabel = new DomElement('label', todoDiv, {text: 'Project name:', attr: {for: 'projectinput'}});
-    const todoInput = new DomElement('input', todoDiv, {attr: {id: 'projectinput', class: 'input'}});
-
+    const todoLabel = new DomElement('label', form, {text: 'Project name:'});
+    const todoInput = new DomElement('input', todoLabel, {attr: {id: 'projectinput', class: 'input'}});
     const buttonDiv = new DomElement('div', form, {attr: {class: 'buttondiv inputdiv'}});
     const addButton = new DomElement('button', buttonDiv, {text: 'Submit', attr: {class: 'button'}});
     return dialog;
